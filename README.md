@@ -17,6 +17,18 @@ npx cypress open
 
 In the Test Runner you will see the list of testing files. You may click any of them and execution tests within a single it would be started in a separate window.
 
+To run all tests in Chrome:
+
+npx cypress run -b chrome
+
+In order to get the report in the Cypress Dashboard you should add some more parameters:
+
+npx cypress run -b chrome --record --key 6bc2a91c-3b07-4bf0-8809-3e8fed5fbf83
+
+To do the same in a headless mode use the following command:
+
+cypress run --record --key 6bc2a91c-3b07-4bf0-8809-3e8fed5fbf83
+
 
 3. Reporting
 Results are loaded into the Cypress Dashboard
