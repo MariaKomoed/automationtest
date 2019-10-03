@@ -1,0 +1,8 @@
+{
+  "baseUrl":"https://reqres.in",
+  "integrationFolder":"cypress/all-tests",
+  "projectId": "wrhsy6",
+  "env": {
+    "googleURL": "https://store.google.com/us"
+  }
+}
