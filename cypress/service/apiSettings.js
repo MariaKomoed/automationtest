@@ -1,1 +1,1 @@
-export const API_URL = Cypress.env("petStoreApiUrl")
+export const API_URL = Cypress.env("petStoreAPIUrl")
