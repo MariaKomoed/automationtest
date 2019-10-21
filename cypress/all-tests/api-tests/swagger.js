@@ -1,11 +1,12 @@
 import Chance from 'chance'
 import RandomForTests from "../../page-objects/functionRandom"
+import {API_URL} from "../../service/apiSettings"
+import {createPet} from "../../service/petService";
 
 describe('Test for swagger petstore', () => {
     before(() => {
 
     })
-
 
     let testingData = [
         {
@@ -47,7 +48,9 @@ describe('Test for swagger petstore', () => {
 
     testingData.forEach(({description, requestData}) => {
         it(`Positive: Create pet ${description}`, () => {
-            cy.request('POST', 'https://petstore.swagger.io/v2/pet', requestData).then(response => {
+
+            createPet()
+                .then(response => {
                 expect(response.status).to.eq(200);
                 expect(response.body).to.have.property('name', requestData.name);
                 expect(response.body).to.have.property('id', requestData.id);
@@ -61,11 +64,7 @@ describe('Test for swagger petstore', () => {
 
     it('Positive: Add pet', () => {
         cy.fixture('pet').then(pet => {
-            cy.request({
-                method: 'POST',
-                url: 'https://petstore.swagger.io/v2/pet',
-                body: pet
-            }).then(response => {
+            createPet().then(response => {
                 expect(response.status).to.eq(200);
                 expect(response.body).to.have.property('name', pet.name);
             })
@@ -76,7 +75,7 @@ describe('Test for swagger petstore', () => {
         cy.fixture('pet').then(pet => {
             cy.request({
                 method: 'POST',
-                url: 'https://petstore.swagger.io/v2/pet',
+                url: `${API_URL}/pet`,
                 body: {"id": "1"},
                 failOnStatusCode: false,
             }).then(response => {
@@ -90,7 +89,7 @@ describe('Test for swagger petstore', () => {
         cy.fixture('pet').then(pet => {
             cy.request({
                 method: 'PUT',
-                url: 'https://petstore.swagger.io/v2/pet',
+                url: `${API_URL}/pet`,
                 body: pet
             }).then(response => {
                 expect(response.status).to.eq(200);
@@ -103,7 +102,7 @@ describe('Test for swagger petstore', () => {
         cy.fixture('pet').then(pet => {
             cy.request({
                 method: 'GET',
-                url: `https://petstore.swagger.io/v2/pet/${pet.id}`,
+                url: `\`${API_URL}/pet\`${pet.id}`,
             }).then(response => {
                 expect(response.status).to.eq(200);
             })
@@ -114,7 +113,7 @@ describe('Test for swagger petstore', () => {
         cy.fixture('pet').then(pet => {
             cy.request({
                 method: 'DELETE',
-                url: `https://petstore.swagger.io/v2/pet/${pet.id}`,
+                url: `\`${API_URL}/pet\`${pet.id}`,
             }).then(response => {
                 expect(response.status).to.eq(200);
                 console.log(response);
