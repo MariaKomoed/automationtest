@@ -34,8 +34,6 @@ describe('Map Tasks', () => {
             cy.log(item);
             cy.log(planet[item]);
         }
-        planet
-
 
     });
     it("if-else operators",()=>
