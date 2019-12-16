@@ -2,12 +2,11 @@ import {Chance} from "chance"
 import {
     difference,
     getPlanetsWithDistance,
-    Helper,
     intersection,
     isSuperSet,
     printPlanets,
     union
-} from "../../../utils/helper"
+} from "../../utils/helper"
 describe("set",()=>
 {
     it(("check"),()=>
@@ -118,6 +117,7 @@ describe("set",()=>
         cy.fixture('obj').then((object)=>{
             let conv=Chance().pickone(object.rates);
             cy.visit("https://www.xe.com/currencyconverter");
+            // cy.get("div[class='css-1nah8gs converterform-dropdown__control']").click({force: true, multiple: true });
             cy.get('#to').click({force: true, multiple: true }).type(`${conv.shortName}{enter}{enter}`)
             cy.get("button[aria-label='Convert']").click();
             cy.get("div[class^='sc-EHOje']:nth-child(2)").invoke('text').then((divText) => {
