@@ -6,7 +6,7 @@ export const isSuperSet=(set,subSet)=>{
         }
     }
     return true;
-};
+}
 export const union=(setA,setB)=>{
     let _union=new Set(setA);
     for(let elem of setB)
@@ -14,7 +14,7 @@ export const union=(setA,setB)=>{
         _union.add(elem);
     }
     return _union;
-};
+}
 export const intersection=(setA,setB)=>{
     let _intersection=new Set();
     for(let elem of setB)
@@ -25,7 +25,7 @@ export const intersection=(setA,setB)=>{
         }
     }
     return _intersection;
-};
+}
 export const difference=(setA,setB)=>{
     let _difference=new Set(setA);
     for(let elem of setB)
@@ -34,21 +34,21 @@ export const difference=(setA,setB)=>{
         _difference.delete(elem);
     }
     return _difference;
-};
+}
 export const printPlanets=(planets)=>
 {
     planets.forEach(planet => {
         cy.log(JSON.stringify(planet));
     })
-};
+}
 export const getPlanetsWithDistance=(planets,distance)=>
 {
     return planets.filter(planet=>planet.distance>distance);
-};
+}
 export const printMapOFPlanets=(planets)=>
 {
     planets.forEach((value, key) => {
         cy.log(key + ': ' + Object.keys(value).map(objKey => objKey + ':' + value[objKey]).join(', '))
     })
 
-};
+}
