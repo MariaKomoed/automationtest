@@ -1,53 +1,44 @@
+import Wild from "../../page-objects/wild"
+
 describe('UI - test Practice', () => {
 
+
     it('Test single item', () => {
-        cy.visit("https://www.wildberries.by/");
-        cy.get("#tbSrch").type(`Constant Delight / Эликсир многофункциональный 12 в 1, 200 мл{enter}`);
-        cy.get(".thumbnail").click();
-        cy.get(".j-add-to-card").click();
-        cy.get(".j-go-to-basket").click();
-        cy.get('.item-in-basket').should(($this) => {
-            expect($this).to.contain(`Constant Delight / Эликсир многофункциональный 12 в 1, 200 мл`)
-        });
-
-
+        cy.fixture('wild').then(data => {
+            Wild.open();
+            Wild.addItemToCard(data.firstItem);
+            Wild.openCard();
+            cy.get('.item-in-basket').eq(0).invoke('text')
+                .should('contain', data.firstItem);
+        })
     });
 
     it('Test change count of items', () => {
-        cy.visit("https://www.wildberries.by/");
-        cy.get("#tbSrch").type(`Constant Delight / Эликсир многофункциональный 12 в 1, 200 мл{enter}`);
-        cy.get(".thumbnail").click();
-        cy.get(".j-add-to-card").click();
-        cy.get(".j-go-to-basket").click();
-        cy.get('.item-in-basket').should(($this) => {
-            expect($this).to.contain(`Constant Delight / Эликсир многофункциональный 12 в 1, 200 мл`)
-        });
-        cy.get(".plus").click();
-        cy.get('.flRight').should(($this) => {
-            expect($this).to.contain('2')
-        });
-
+        cy.fixture('wild').then(data => {
+            Wild.open();
+            Wild.addItemToCard(data.firstItem);
+            Wild.openCard();
+            cy.get('.item-in-basket').eq(0).invoke('text')
+                .should('contain', data.firstItem);
+            Wild.increaseCountOfItems();
+            cy.get('.flRight').should(($this) => {
+                expect($this).to.contain('2')
+            });
+        })
 
     });
 
     it('Test multiple items', () => {
-        cy.visit("https://www.wildberries.by/");
-        cy.get("#tbSrch").type(`Constant Delight / Эликсир многофункциональный 12 в 1, 200 мл{enter}`);
-        cy.get(".thumbnail").click();
-        cy.get(".j-add-to-card").click();
 
-
-        cy.get("#tbSrch").type(`ПонтиПарфюм / Парфюмерная вода "Imperatrice Atlantis 13" 50 мл{enter}`);
-        cy.get(".thumbnail").click();
-        cy.get(".j-add-to-card").click();
-
-
-        cy.get(".j-go-to-basket").click();
-        cy.get('.first').should(($this) => {
-            expect($this).to.contain(`ПонтиПарфюм / Парфюмерная вода "Imperatrice Atlantis 13" 50 мл`)
-            expect($this).to.contain(`Constant Delight / Эликсир многофункциональный 12 в 1, 200 мл`)
-        });
-
+        cy.fixture('wild').then(data => {
+            Wild.open();
+            Wild.addItemToCard(data.firstItem);
+            Wild.addItemToCard(data.secondItem);
+            Wild.openCard();
+            cy.get('.item-title-good').eq(0).invoke('text')
+                .should('contain', data.secondItem)
+            cy.get('.item-title-good').eq(1).invoke('text')
+                .should('contain', data.firstItem)
+        })
     });
-
-});
+})
